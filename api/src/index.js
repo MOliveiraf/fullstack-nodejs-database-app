@@ -1,8 +1,16 @@
-import express from 'express'
+import express from 'express' 
 import { prisma } from './utils/prisma.js'
+import cors from 'cors'
 
 const app = express()
+
+// Middleware to parse incoming JSON requests
 app.use(express.json())
+
+// Enable CORS (Cross-Origin Resource Sharing)
+// This configuration allows requests only from the frontend running on http://localhost:5173
+// It ensures that only trusted origins can interact with the backend API
+app.use(cors({ origin: 'http://localhost:5173' }))
 
 app.post('/users', async (req, res) => { 
     // Create a new user in the database using data from the request body
